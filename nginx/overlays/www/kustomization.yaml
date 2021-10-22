@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+ 
+resources:
+  - ../../base
+ 
+namespace: standard
+
+commonLabels:
+  app: nginx
+  environment: oosaka
+  domain: castle.local
+
+replicas:
+  - name: www
+    count: 1
+images:
+  - name: NGINX_IMAGE
+    newName: ghcr.io/tac-ichiro/nginx
+    newTag: "1.0"
+
+patches:
+  - patch.yaml
